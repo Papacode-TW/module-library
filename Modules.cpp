@@ -10,7 +10,7 @@ Motor::Motor(){
 void Motor::leftRun(int8_t speed){
     _left_speed=speed;
     if(speed>0){
-        analogWrite(MOTOR_LEFT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
+    analogWrite(MOTOR_LEFT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
         analogWrite(MOTOR_LEFT_BACKWARD,0);
     }else if(speed<0){
         analogWrite(MOTOR_LEFT_FORWARD,0);
@@ -40,7 +40,68 @@ void Motor::rightStop(){
     analogWrite(MOTOR_RIGHT_FORWARD,0);
     analogWrite(MOTOR_RIGHT_BACKWARD,0);
 }
-
+void Motor::cycleplusle(){
+	cyclele++;
+	return;
+}
+void Motor::cycleplusri(){
+	cycleri++;
+	return;
+}
+void Motor::active(int move,int pic[]){
+  cyclele=0;cycleri=0;
+  if (pic[move] == 0)
+  {
+    leftRun(60);
+    rightRun(-60);
+    while(cyclele<=20||cycleri<=20){
+        if(cyclele>=20)
+            leftStop();
+        if(cycleri>=20)
+            rightStop();
+    }
+    delay(500);
+  }
+  else
+    if (pic[move] == 1)
+    {
+      rightRun(60);
+      leftRun(-60);
+      while(cyclele<=20||cycleri<=20){
+        if(cyclele>=20)
+            leftStop();
+        if(cycleri>=20)
+            rightStop();
+      }
+      delay(500);
+    }
+  else
+    if (pic[move] == 2)
+    {
+      rightRun(70);
+      leftRun(70);
+      while(cyclele<=80||cycleri<=80){
+        if(cyclele>=80)
+            leftStop();
+        if(cycleri>=80)
+            rightStop();
+      }
+      delay(500);     
+    }
+  else
+    if (pic[move] == 3)
+    {
+      rightRun(-70);
+      leftRun(-70);
+      while(cyclele<=80||cycleri<=80){
+      	if(cyclele>=80)
+            leftStop();
+        if(cycleri>=80)
+            rightStop();
+      }
+      delay(500);
+    }
+}
 //class Ultrasound
 Ultrasound::Ultrasound(){
     pinMode(ULTRASOUND_ECHO,INPUT);
