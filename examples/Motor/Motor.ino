@@ -16,8 +16,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   speed+=inc;
   //0-100, positive forward and negative backward
-  motor.leftRun(speed);
-  motor.rightRun(speed);
+  motor.leftSpeed(speed);
+  motor.rightSpeed(speed);
   Serial.println(speed);
   if(speed>=100||speed<=-100)inc=-inc;
   delay(100);

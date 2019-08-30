@@ -16,10 +16,10 @@ Motor::Motor(){
     attachInterrupt(1, plusle, FALLING);
 }
 
-volatile int Motor::cyclele=0;
-volatile int Motor::cycleri=0;
+volatile uint16_t Motor::cyclele=0;
+volatile uint16_t Motor::cycleri=0;
 
-void Motor::leftRun(int8_t speed){
+void Motor::leftSpeed(int8_t speed){
     _left_speed=speed;
     if(speed>0){
     analogWrite(MOTOR_LEFT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
@@ -30,7 +30,7 @@ void Motor::leftRun(int8_t speed){
     }
 }
 
-void Motor::rightRun(int8_t speed){
+void Motor::rightSpeed(int8_t speed){
     _right_speed=speed;
     if(speed>0){
         analogWrite(MOTOR_RIGHT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
@@ -39,6 +39,55 @@ void Motor::rightRun(int8_t speed){
         analogWrite(MOTOR_RIGHT_FORWARD,0);
         analogWrite(MOTOR_RIGHT_BACKWARD,map(-speed,1,100,LOW_SPEED,HIGH_SPEED));
     }
+}
+
+void Motor::runDist(int8_t distance){
+	uint16_t count = abs(distance) * COUNT_PER_ROT / (DIAMETER*M_PI);
+
+	if(distance > 0){
+		rightSpeed(70);
+		leftSpeed(70);
+		while(cyclele<count||cycleri<count){
+        	if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+            	rightStop();
+      	}
+	}else{
+		rightSpeed(-70);
+      	leftSpeed(-70);
+      	while(cyclele<count||cycleri<count){
+      		if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+            	rightStop();
+        }
+	}
+}
+
+void Motor::turnDeg(int16_t degree){
+	uint16_t dis = WHEEL_WIDTH * abs(degree) / 360;
+	uint16_t count =  dis * COUNT_PER_ROT / DIAMETER; //times 2??
+	if(degree > 0){
+		rightSpeed(60);
+      	leftSpeed(-60);
+      	while(cyclele<count||cycleri<count){
+        	if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+        	    rightStop();
+      }
+	}else{
+		rightSpeed(-60);
+      	leftSpeed(60);
+      	while(cyclele<count||cycleri<count){
+        	if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+        	    rightStop();
+      }
+	}
+
 }
 
 void Motor::leftStop(){
@@ -64,8 +113,8 @@ void Motor::active(int move,int pic[]){
   cyclele=0;cycleri=0;
   if (pic[move] == 0)
   {
-    leftRun(60);
-    rightRun(-60);
+    leftSpeed(60);
+    rightSpeed(-60);
     while(cyclele<=20||cycleri<=20){
         if(cyclele>=20)
             leftStop();
@@ -77,8 +126,8 @@ void Motor::active(int move,int pic[]){
   else
     if (pic[move] == 1)
     {
-      rightRun(60);
-      leftRun(-60);
+      rightSpeed(60);
+      leftSpeed(-60);
       while(cyclele<=20||cycleri<=20){
         if(cyclele>=20)
             leftStop();
@@ -90,8 +139,8 @@ void Motor::active(int move,int pic[]){
   else
     if (pic[move] == 2)
     {
-      rightRun(70);
-      leftRun(70);
+      rightSpeed(70);
+      leftSpeed(70);
       while(cyclele<=80||cycleri<=80){
         if(cyclele>=80)
             leftStop();
@@ -103,8 +152,8 @@ void Motor::active(int move,int pic[]){
   else
     if (pic[move] == 3)
     {
-      rightRun(-70);
-      leftRun(-70);
+      rightSpeed(-70);
+      leftSpeed(-70);
       while(cyclele<=80||cycleri<=80){
       	if(cyclele>=80)
             leftStop();

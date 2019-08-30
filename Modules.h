@@ -24,6 +24,10 @@
 //BUZZER
 #define BUZZER_PIN 8
 
+#define COUNT_PER_ROT 20
+#define DIAMETER 6.5
+#define WHEEL_WIDTH 12
+
 class Motor{
     public:
         Motor();
@@ -31,8 +35,11 @@ class Motor{
          * @function
          * @param   -100 to +100 for backward to forward
         */
-        void leftRun(int8_t speed);
-        void rightRun(int8_t speed);
+
+        void leftSpeed(int8_t speed);
+        void rightSpeed(int8_t speed);
+        void runDist(int8_t distance);
+        void turnDeg(int16_t degree);
         void leftStop();
         void rightStop();
         static void cycleplusle();
@@ -43,12 +50,11 @@ class Motor{
     private:
         int8_t _left_speed=0;
         int8_t _right_speed=0;
-        static volatile int cyclele;
-        static volatile int cycleri;
+        static volatile uint16_t cyclele;
+        static volatile uint16_t cycleri;
 };
 
-        // static int cyclele=0;
-        // static int cycleri=0;
+
 
 class JoyStick{
     public:
