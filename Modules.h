@@ -35,16 +35,16 @@ class Motor{
         void rightRun(int8_t speed);
         void leftStop();
         void rightStop();
-        void cycleplusle();
-		void cycleplusri();
+        static void cycleplusle();
+		static void cycleplusri();
         void active(int move,int pic[]);
         int8_t getLeftSpeed(){return _left_speed;}
         int8_t getRightSpeed(){return _right_speed;}
     private:
         int8_t _left_speed=0;
         int8_t _right_speed=0;
-        int cyclele=0;
-        int cycleri=0;
+        static volatile int cyclele=0;
+        static volatile int cycleri=0;
 };
 
 class JoyStick{

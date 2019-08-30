@@ -1,10 +1,19 @@
 #include "Modules.h"
 //class Motor
+void plusle(){
+	Motor::cycleplusle();
+}
+void plusri(){
+	Motor::cycleplusri();
+}
+
 Motor::Motor(){
     pinMode(MOTOR_LEFT_FORWARD,OUTPUT);
     pinMode(MOTOR_LEFT_BACKWARD,OUTPUT);
     pinMode(MOTOR_RIGHT_BACKWARD,OUTPUT);
     pinMode(MOTOR_RIGHT_FORWARD,OUTPUT);
+    attachInterrupt(0, plusri, FALLING);
+    attachInterrupt(1, plusle, FALLING);
 }
 
 void Motor::leftRun(int8_t speed){
@@ -40,11 +49,11 @@ void Motor::rightStop(){
     analogWrite(MOTOR_RIGHT_FORWARD,0);
     analogWrite(MOTOR_RIGHT_BACKWARD,0);
 }
-void Motor::cycleplusle(){
+static void Motor::cycleplusle(){
 	cyclele++;
 	return;
 }
-void Motor::cycleplusri(){
+static void Motor::cycleplusri(){
 	cycleri++;
 	return;
 }
