@@ -16,6 +16,9 @@ Motor::Motor(){
     attachInterrupt(1, plusle, FALLING);
 }
 
+volatile int Motor::cyclele=0;
+volatile int Motor::cycleri=0;
+
 void Motor::leftRun(int8_t speed){
     _left_speed=speed;
     if(speed>0){

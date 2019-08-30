@@ -43,9 +43,12 @@ class Motor{
     private:
         int8_t _left_speed=0;
         int8_t _right_speed=0;
-        static volatile int cyclele=0;
-        static volatile int cycleri=0;
+        static volatile int cyclele;
+        static volatile int cycleri;
 };
+
+        // static int cyclele=0;
+        // static int cycleri=0;
 
 class JoyStick{
     public:
