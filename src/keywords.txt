@@ -1,0 +1,36 @@
+#Syntax Color
+####################
+#Datatypes KEYWORD1
+####################
+Motor			KEYWORD1
+JoyStick		KEYWORD1
+Ultrasound		KEYWORD1
+TurnSignal		KEYWORD1
+Buzzer			KEYWORD1
+####################
+#Methods and Functions 	KEYWORD2
+####################
+leftRun			KEYWORD2
+leftStop		KEYWORD2
+rightRun		KEYWORD2	
+rightStop		KEYWORD2
+getLeftSpeed	KEYWORD2
+getRightSpeed	KEYWORD2
+isClicked		KEYWORD2
+up				KEYWORD2
+down			KEYWORD2
+left			KEYWORD2
+right			KEYWORD2
+readX			KEYWORD2
+readY			KEYWORD2
+getDistanceCM	KEYWORD2
+getDistanceINCH KEYWORD2
+setRight		KEYWORD2
+setLeft			KEYWORD2
+setBlinkRight	KEYWORD2
+setBlinkLeft	KEYWORD2
+setFrequency	KEYWORD2
+initBlink		KEYWORD2
+start			KEYWORD2
+stop			KEYWORD2
+getFrequency	KEYWORD2
