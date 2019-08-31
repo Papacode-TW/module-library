@@ -1,42 +1,93 @@
 #include "Modules.h"
 //class Motor
+void plusle(){
+	Motor::cycleplusle();
+}
+void plusri(){
+	Motor::cycleplusri();
+}
+
 Motor::Motor(){
     pinMode(MOTOR_LEFT_FORWARD,OUTPUT);
     pinMode(MOTOR_LEFT_BACKWARD,OUTPUT);
     pinMode(MOTOR_RIGHT_BACKWARD,OUTPUT);
     pinMode(MOTOR_RIGHT_FORWARD,OUTPUT);
+    attachInterrupt(0, plusri, FALLING);
+    attachInterrupt(1, plusle, FALLING);
 }
 
-void Motor::leftRun(int8_t speed){
+volatile uint16_t Motor::cyclele=0;
+volatile uint16_t Motor::cycleri=0;
+
+void Motor::leftSpeed(int8_t speed){
     _left_speed=speed;
-    if(speed>100)speed=100;
-    if(speed<-100)speed=-100;
     if(speed>0){
-        analogWrite(MOTOR_LEFT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
+    analogWrite(MOTOR_LEFT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
         analogWrite(MOTOR_LEFT_BACKWARD,0);
     }else if(speed<0){
         analogWrite(MOTOR_LEFT_FORWARD,0);
         analogWrite(MOTOR_LEFT_BACKWARD,map(-speed,1,100,LOW_SPEED,HIGH_SPEED));
-    }else{
-        //speed == 0
-        rightStop();
     }
 }
 
-void Motor::rightRun(int8_t speed){
+void Motor::rightSpeed(int8_t speed){
     _right_speed=speed;
-    if(speed>100)speed=100;
-    if(speed<-100)speed=-100;
     if(speed>0){
         analogWrite(MOTOR_RIGHT_FORWARD,map(speed,1,100,LOW_SPEED,HIGH_SPEED));
         analogWrite(MOTOR_RIGHT_BACKWARD,0);
     }else if(speed<0){
         analogWrite(MOTOR_RIGHT_FORWARD,0);
         analogWrite(MOTOR_RIGHT_BACKWARD,map(-speed,1,100,LOW_SPEED,HIGH_SPEED));
-    }else{
-        //speed == 0
-        rightStop();
     }
+}
+
+void Motor::runDist(int8_t distance){
+	uint16_t count = abs(distance) * COUNT_PER_ROT / (DIAMETER*M_PI);
+
+	if(distance > 0){
+		rightSpeed(70);
+		leftSpeed(70);
+		while(cyclele<count||cycleri<count){
+        	if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+            	rightStop();
+      	}
+	}else{
+		rightSpeed(-70);
+      	leftSpeed(-70);
+      	while(cyclele<count||cycleri<count){
+      		if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+            	rightStop();
+        }
+	}
+}
+
+void Motor::turnDeg(int16_t degree){
+	uint16_t dis = WHEEL_WIDTH * abs(degree) / 360;
+	uint16_t count =  dis * COUNT_PER_ROT / DIAMETER; //times 2??
+	if(degree > 0){
+		rightSpeed(60);
+      	leftSpeed(-60);
+      	while(cyclele<count||cycleri<count){
+        	if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+        	    rightStop();
+      }
+	}else{
+		rightSpeed(-60);
+      	leftSpeed(60);
+      	while(cyclele<count||cycleri<count){
+        	if(cyclele>=count)
+            	leftStop();
+        	if(cycleri>=count)
+        	    rightStop();
+      }
+	}
+
 }
 
 void Motor::leftStop(){
@@ -50,7 +101,68 @@ void Motor::rightStop(){
     analogWrite(MOTOR_RIGHT_FORWARD,0);
     analogWrite(MOTOR_RIGHT_BACKWARD,0);
 }
-
+static void Motor::cycleplusle(){
+	cyclele++;
+	return;
+}
+static void Motor::cycleplusri(){
+	cycleri++;
+	return;
+}
+void Motor::active(int move,int pic[]){
+  cyclele=0;cycleri=0;
+  if (pic[move] == 0)
+  {
+    leftSpeed(60);
+    rightSpeed(-60);
+    while(cyclele<=20||cycleri<=20){
+        if(cyclele>=20)
+            leftStop();
+        if(cycleri>=20)
+            rightStop();
+    }
+    delay(500);
+  }
+  else
+    if (pic[move] == 1)
+    {
+      rightSpeed(60);
+      leftSpeed(-60);
+      while(cyclele<=20||cycleri<=20){
+        if(cyclele>=20)
+            leftStop();
+        if(cycleri>=20)
+            rightStop();
+      }
+      delay(500);
+    }
+  else
+    if (pic[move] == 2)
+    {
+      rightSpeed(70);
+      leftSpeed(70);
+      while(cyclele<=80||cycleri<=80){
+        if(cyclele>=80)
+            leftStop();
+        if(cycleri>=80)
+            rightStop();
+      }
+      delay(500);     
+    }
+  else
+    if (pic[move] == 3)
+    {
+      rightSpeed(-70);
+      leftSpeed(-70);
+      while(cyclele<=80||cycleri<=80){
+      	if(cyclele>=80)
+            leftStop();
+        if(cycleri>=80)
+            rightStop();
+      }
+      delay(500);
+    }
+}
 //class Ultrasound
 Ultrasound::Ultrasound(){
     pinMode(ULTRASOUND_ECHO,INPUT);
@@ -79,14 +191,14 @@ TurnSignal::TurnSignal(){
     pinMode(TURNSIGNAL_R,OUTPUT);
 }
 
-void TurnSignal::initBlink(unsigned int freq){
+void TurnSignal::initBlink(){
     //Init timer 1
     noInterrupts();
     TCCR1A = 0;
     TCCR1B = 0;
     TCNT1 = 0;
     /* Time Compare Value: 16MHz/prescalar/2Hz/2 intervals=15625 */
-    OCR1A = 16e+6/256/freq/2;      //time compare value
+    OCR1A = 16e+6/256/TURNSIGNAL_BLINK_HZ/2;      //time compare value
     TCCR1B |= (1 << WGM12);    /* CTC Mode */
     TCCR1B |= (1 << CS12);    /* 256 prescalar */
     TIMSK1 |= (1 << OCIE1A);    /* Enable timer compare interrupt */

@@ -24,6 +24,10 @@
 //BUZZER
 #define BUZZER_PIN 8
 
+#define COUNT_PER_ROT 20
+#define DIAMETER 6.5
+#define WHEEL_WIDTH 12
+
 class Motor{
     public:
         Motor();
@@ -31,16 +35,26 @@ class Motor{
          * @function
          * @param   -100 to +100 for backward to forward
         */
-        void leftRun(int8_t speed);
-        void rightRun(int8_t speed);
+
+        void leftSpeed(int8_t speed);
+        void rightSpeed(int8_t speed);
+        void runDist(int8_t distance);
+        void turnDeg(int16_t degree);
         void leftStop();
         void rightStop();
+        static void cycleplusle();
+		static void cycleplusri();
+        void active(int move,int pic[]);
         int8_t getLeftSpeed(){return _left_speed;}
         int8_t getRightSpeed(){return _right_speed;}
     private:
         int8_t _left_speed=0;
         int8_t _right_speed=0;
+        static volatile uint16_t cyclele;
+        static volatile uint16_t cycleri;
 };
+
+
 
 class JoyStick{
     public:
@@ -65,13 +79,11 @@ class Ultrasound{
 class TurnSignal{
     public:
         TurnSignal();
-        void initBlink(unsigned int freq=TURNSIGNAL_BLINK_HZ);
+        void initBlink();
         void setRight(bool state);
         void setLeft(bool state);
         void setBlinkRight(bool state);
         void setBlinkLeft(bool state);
-        bool readLeftSignal(){return digitalRead(TURNSIGNAL_L);}
-        bool readRightSignal(){return digitalRead(TURNSIGNAL_R);}
         static void timer1ISR();
     private:
         static volatile bool _blink_right;      //use volatile for variables used in ISR

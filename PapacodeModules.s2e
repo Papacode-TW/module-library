@@ -35,6 +35,32 @@
                 "loop":""
             }
         ],
+		[
+            "w",
+            "Car run for %n cm",
+            "CarRunDist",
+            "10",
+            {
+                "inc":"#include \"Modules.h\"\n",
+                "def":"Motor motor;\n",
+                "setup":"",
+                "work":"motor.runDist({0});\n",
+                "loop":""
+            }
+        ],
+		[
+            "w",
+            "Car turn for %n degree",
+            "CarTurnDeg",
+            "90",
+            {
+                "inc":"#include \"Modules.h\"\n",
+                "def":"Motor motor;\n",
+                "setup":"",
+                "work":"motor.turnDeg({0});\n",
+                "loop":""
+            }
+        ],
         [
             "w",
             "Left Motor Stop",
@@ -461,6 +487,8 @@
             "OFF":"關閉",
             "Left Motor run with speed %n":"馬達 左馬達以 %n 速度轉動",
             "Right Motor run with speed %n":"馬達 右馬達以 %n 速度轉動",
+			"Car run for %n cm":"車子前進 %n 公分",
+			"Car turn for %n degree":"車子旋轉 %n 度"
             "Left Motor Stop":"馬達 左馬達停止",
             "Right Motor Stop":"馬達 右馬達停止",
             "Get Left Motor Speed":"馬達 左馬達速度",
