@@ -1,8 +1,8 @@
 {
-    "extensionName": "PapacodeModules",
-    "description": "Extension for PapacodeModules",
-    "version": "1.0",
-    "author": "Kevin Lin (s94285.eed06@nctu.edu.tw)",
+    "extensionName": "PapacodeModules-Lee",
+    "description": "Extension for PapacodeModules-Lee",
+    "version": "1.1",
+    "author": "BioMotion (bensonpuppy1997@gmail.com)",
     "homepage": "http://www.papacode.com.tw",
     "sort":0,
     "javascriptURL":"",
@@ -488,7 +488,7 @@
             "Left Motor run with speed %n":"馬達 左馬達以 %n 速度轉動",
             "Right Motor run with speed %n":"馬達 右馬達以 %n 速度轉動",
 			"Car run for %n cm":"車子前進 %n 公分",
-			"Car turn for %n degree":"車子旋轉 %n 度"
+			"Car turn for %n degree":"車子旋轉 %n 度",
             "Left Motor Stop":"馬達 左馬達停止",
             "Right Motor Stop":"馬達 右馬達停止",
             "Get Left Motor Speed":"馬達 左馬達速度",
