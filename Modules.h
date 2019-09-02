@@ -13,7 +13,7 @@
 //JOYSTICK
 #define JOYSTICK_X A0
 #define JOYSTICK_Y A1
-#define JOYSTICK_SW 2
+#define JOYSTICK_SW 4
 //ULTRASOUND
 #define ULTRASOUND_ECHO 3
 #define ULTRASOUND_TRIG 2
@@ -26,7 +26,7 @@
 
 #define COUNT_PER_ROT 20
 #define DIAMETER 6.5
-#define WHEEL_WIDTH 12
+#define WHEEL_WIDTH 11
 
 class Motor{
     public:
@@ -44,7 +44,6 @@ class Motor{
         void rightStop();
         static void cycleplusle();
 		static void cycleplusri();
-        void active(int move,int pic[]);
         int8_t getLeftSpeed(){return _left_speed;}
         int8_t getRightSpeed(){return _right_speed;}
     private:

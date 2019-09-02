@@ -76,8 +76,8 @@ void Motor::turnDeg(int16_t degree){
 	cyclele = 0;
 	cycleri = 0;
 	if(degree > 0){
-		rightSpeed(60);
-      	leftSpeed(-60);
+		rightSpeed(50);
+      	leftSpeed(-50);
       	while(cyclele<count||cycleri<count){
 			Serial.print(cyclele);
 			Serial.println(cycleri);
@@ -87,8 +87,8 @@ void Motor::turnDeg(int16_t degree){
         	    rightStop();
       }
 	}else{
-		rightSpeed(-60);
-      	leftSpeed(60);
+		rightSpeed(-50);
+      	leftSpeed(50);
       	while(cyclele<count||cycleri<count){
 			Serial.print(cyclele);
 			Serial.println(cycleri);
@@ -120,60 +120,7 @@ static void Motor::cycleplusri(){
 	cycleri++;
 	return;
 }
-void Motor::active(int move,int pic[]){
-  cyclele=0;cycleri=0;
-  if (pic[move] == 0)
-  {
-    leftSpeed(60);
-    rightSpeed(-60);
-    while(cyclele<=20||cycleri<=20){
-        if(cyclele>=20)
-            leftStop();
-        if(cycleri>=20)
-            rightStop();
-    }
-    delay(500);
-  }
-  else
-    if (pic[move] == 1)
-    {
-      rightSpeed(60);
-      leftSpeed(-60);
-      while(cyclele<=20||cycleri<=20){
-        if(cyclele>=20)
-            leftStop();
-        if(cycleri>=20)
-            rightStop();
-      }
-      delay(500);
-    }
-  else
-    if (pic[move] == 2)
-    {
-      rightSpeed(70);
-      leftSpeed(70);
-      while(cyclele<=80||cycleri<=80){
-        if(cyclele>=80)
-            leftStop();
-        if(cycleri>=80)
-            rightStop();
-      }
-      delay(500);     
-    }
-  else
-    if (pic[move] == 3)
-    {
-      rightSpeed(-70);
-      leftSpeed(-70);
-      while(cyclele<=80||cycleri<=80){
-      	if(cyclele>=80)
-            leftStop();
-        if(cycleri>=80)
-            rightStop();
-      }
-      delay(500);
-    }
-}
+
 //class Ultrasound
 Ultrasound::Ultrasound(){
     pinMode(ULTRASOUND_ECHO,INPUT);
