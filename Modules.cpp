@@ -42,12 +42,15 @@ void Motor::rightSpeed(int8_t speed){
 }
 
 void Motor::runDist(int8_t distance){
-	uint16_t count = abs(distance) * COUNT_PER_ROT / (DIAMETER*M_PI);
-
+	uint16_t count = abs(distance) * COUNT_PER_ROT * 2 / (DIAMETER*M_PI);
+	cyclele = 0;
+	cycleri = 0;
 	if(distance > 0){
 		rightSpeed(70);
 		leftSpeed(70);
 		while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
         	if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
@@ -57,6 +60,8 @@ void Motor::runDist(int8_t distance){
 		rightSpeed(-70);
       	leftSpeed(-70);
       	while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
       		if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
@@ -67,11 +72,15 @@ void Motor::runDist(int8_t distance){
 
 void Motor::turnDeg(int16_t degree){
 	uint16_t dis = WHEEL_WIDTH * abs(degree) / 360;
-	uint16_t count =  dis * COUNT_PER_ROT / DIAMETER; //times 2??
+	uint16_t count =  dis * COUNT_PER_ROT * 2 / DIAMETER; //times 2??
+	cyclele = 0;
+	cycleri = 0;
 	if(degree > 0){
 		rightSpeed(60);
       	leftSpeed(-60);
       	while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
         	if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
@@ -81,6 +90,8 @@ void Motor::turnDeg(int16_t degree){
 		rightSpeed(-60);
       	leftSpeed(60);
       	while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
         	if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
