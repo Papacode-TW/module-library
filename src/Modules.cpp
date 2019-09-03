@@ -42,12 +42,15 @@ void Motor::rightSpeed(int8_t speed){
 }
 
 void Motor::runDist(int8_t distance){
-	uint16_t count = abs(distance) * COUNT_PER_ROT / (DIAMETER*M_PI);
-
+	uint16_t count = abs(distance) * COUNT_PER_ROT * 2 / (DIAMETER*M_PI);
+	cyclele = 0;
+	cycleri = 0;
 	if(distance > 0){
 		rightSpeed(70);
 		leftSpeed(70);
 		while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
         	if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
@@ -57,6 +60,8 @@ void Motor::runDist(int8_t distance){
 		rightSpeed(-70);
       	leftSpeed(-70);
       	while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
       		if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
@@ -67,20 +72,26 @@ void Motor::runDist(int8_t distance){
 
 void Motor::turnDeg(int16_t degree){
 	uint16_t dis = WHEEL_WIDTH * abs(degree) / 360;
-	uint16_t count =  dis * COUNT_PER_ROT / DIAMETER; //times 2??
+	uint16_t count =  dis * COUNT_PER_ROT * 2 / DIAMETER; //times 2??
+	cyclele = 0;
+	cycleri = 0;
 	if(degree > 0){
-		rightSpeed(60);
-      	leftSpeed(-60);
+		rightSpeed(50);
+      	leftSpeed(-50);
       	while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
         	if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
         	    rightStop();
       }
 	}else{
-		rightSpeed(-60);
-      	leftSpeed(60);
+		rightSpeed(-50);
+      	leftSpeed(50);
       	while(cyclele<count||cycleri<count){
+			Serial.print(cyclele);
+			Serial.println(cycleri);
         	if(cyclele>=count)
             	leftStop();
         	if(cycleri>=count)
@@ -101,68 +112,17 @@ void Motor::rightStop(){
     analogWrite(MOTOR_RIGHT_FORWARD,0);
     analogWrite(MOTOR_RIGHT_BACKWARD,0);
 }
-static void Motor::cycleplusle(){
+
+void Motor::cycleplusle(){
 	cyclele++;
 	return;
 }
-static void Motor::cycleplusri(){
+
+void Motor::cycleplusri(){
 	cycleri++;
 	return;
 }
-void Motor::active(int move,int pic[]){
-  cyclele=0;cycleri=0;
-  if (pic[move] == 0)
-  {
-    leftSpeed(60);
-    rightSpeed(-60);
-    while(cyclele<=20||cycleri<=20){
-        if(cyclele>=20)
-            leftStop();
-        if(cycleri>=20)
-            rightStop();
-    }
-    delay(500);
-  }
-  else
-    if (pic[move] == 1)
-    {
-      rightSpeed(60);
-      leftSpeed(-60);
-      while(cyclele<=20||cycleri<=20){
-        if(cyclele>=20)
-            leftStop();
-        if(cycleri>=20)
-            rightStop();
-      }
-      delay(500);
-    }
-  else
-    if (pic[move] == 2)
-    {
-      rightSpeed(70);
-      leftSpeed(70);
-      while(cyclele<=80||cycleri<=80){
-        if(cyclele>=80)
-            leftStop();
-        if(cycleri>=80)
-            rightStop();
-      }
-      delay(500);     
-    }
-  else
-    if (pic[move] == 3)
-    {
-      rightSpeed(-70);
-      leftSpeed(-70);
-      while(cyclele<=80||cycleri<=80){
-      	if(cyclele>=80)
-            leftStop();
-        if(cycleri>=80)
-            rightStop();
-      }
-      delay(500);
-    }
-}
+
 //class Ultrasound
 Ultrasound::Ultrasound(){
     pinMode(ULTRASOUND_ECHO,INPUT);
