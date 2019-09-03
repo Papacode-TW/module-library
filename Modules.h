@@ -4,10 +4,10 @@
 #include <Arduino.h>
 
 //MOTOR
-#define MOTOR_LEFT_FORWARD 5
-#define MOTOR_LEFT_BACKWARD 6
-#define MOTOR_RIGHT_FORWARD 9
-#define MOTOR_RIGHT_BACKWARD 10
+#define MOTOR_LEFT_FORWARD 10
+#define MOTOR_LEFT_BACKWARD 9
+#define MOTOR_RIGHT_FORWARD 6
+#define MOTOR_RIGHT_BACKWARD 5
 #define LOW_SPEED 50
 #define HIGH_SPEED 255
 //JOYSTICK
@@ -24,9 +24,9 @@
 //BUZZER
 #define BUZZER_PIN 8
 
-#define COUNT_PER_ROT 20
+#define COUNT_PER_ROT 33
 #define DIAMETER 6.5
-#define WHEEL_WIDTH 11
+#define WHEEL_WIDTH 10
 
 class Motor{
     public:
