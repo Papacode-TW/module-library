@@ -4,16 +4,16 @@
 #include <Arduino.h>
 
 //MOTOR
-#define MOTOR_LEFT_FORWARD 5
-#define MOTOR_LEFT_BACKWARD 6
-#define MOTOR_RIGHT_FORWARD 9
-#define MOTOR_RIGHT_BACKWARD 10
+#define MOTOR_LEFT_FORWARD 10
+#define MOTOR_LEFT_BACKWARD 9
+#define MOTOR_RIGHT_FORWARD 6
+#define MOTOR_RIGHT_BACKWARD 5
 #define LOW_SPEED 50
 #define HIGH_SPEED 255
 //JOYSTICK
 #define JOYSTICK_X A0
 #define JOYSTICK_Y A1
-#define JOYSTICK_SW 2
+#define JOYSTICK_SW 4
 //ULTRASOUND
 #define ULTRASOUND_ECHO 3
 #define ULTRASOUND_TRIG 2
@@ -24,9 +24,9 @@
 //BUZZER
 #define BUZZER_PIN 8
 
-#define COUNT_PER_ROT 20
+#define COUNT_PER_ROT 33
 #define DIAMETER 6.5
-#define WHEEL_WIDTH 12
+#define WHEEL_WIDTH 10
 
 class Motor{
     public:
@@ -44,7 +44,6 @@ class Motor{
         void rightStop();
         static void cycleplusle();
 		static void cycleplusri();
-        void active(int move,int pic[]);
         int8_t getLeftSpeed(){return _left_speed;}
         int8_t getRightSpeed(){return _right_speed;}
     private:
