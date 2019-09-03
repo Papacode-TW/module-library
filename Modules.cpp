@@ -112,11 +112,13 @@ void Motor::rightStop(){
     analogWrite(MOTOR_RIGHT_FORWARD,0);
     analogWrite(MOTOR_RIGHT_BACKWARD,0);
 }
-static void Motor::cycleplusle(){
+
+void Motor::cycleplusle(){
 	cyclele++;
 	return;
 }
-static void Motor::cycleplusri(){
+
+void Motor::cycleplusri(){
 	cycleri++;
 	return;
 }
