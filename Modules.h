@@ -4,8 +4,8 @@
 #include <Arduino.h>
 
 //MOTOR
-#define MOTOR_LEFT_FORWARD 10
-#define MOTOR_LEFT_BACKWARD 9
+#define MOTOR_LEFT_FORWARD 9
+#define MOTOR_LEFT_BACKWARD 10
 #define MOTOR_RIGHT_FORWARD 6
 #define MOTOR_RIGHT_BACKWARD 5
 #define LOW_SPEED 50
@@ -15,18 +15,18 @@
 #define JOYSTICK_Y A1
 #define JOYSTICK_SW 4
 //ULTRASOUND
-#define ULTRASOUND_ECHO 3
-#define ULTRASOUND_TRIG 2
+#define ULTRASOUND_ECHO A3
+#define ULTRASOUND_TRIG A2
 //TURNSIGNAL
-#define TURNSIGNAL_L 4
-#define TURNSIGNAL_R 7
+#define TURNSIGNAL_L 11
+#define TURNSIGNAL_R 12
 #define TURNSIGNAL_BLINK_HZ 2
 //BUZZER
 #define BUZZER_PIN 8
 
-#define COUNT_PER_ROT 33
-#define DIAMETER 6.5
-#define WHEEL_WIDTH 10
+#define COUNT_PER_ROT 140
+#define DIAMETER 4.5
+#define WHEEL_WIDTH 14.5
 
 class Motor{
     public:

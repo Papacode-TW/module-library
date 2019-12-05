@@ -365,7 +365,7 @@ void loop()
       {
         a2 = digitalRead(4);
         a1 = analogRead(A1);
-        if (a1 > 1000&&loop<9)//loop++最大到9
+        if (a1 <10&&loop<9)//loop++最大到9
         {
           loop++;
           display.fillRect(100, 1, 24, 29, 0);
@@ -374,7 +374,7 @@ void loop()
           display.display();
         }
         else
-          if (a1 < 10 && loop > 1)//loop--最小到1
+          if (a1 >1000 && loop > 1)//loop--最小到1
           {
             loop--;
             display.fillRect(100, 1, 24, 29, 0);
@@ -405,7 +405,7 @@ void loop()
           if(pic[i]!=-1)
             num--;
         }
-        activepic(10);
+      
       }
       //初始化回來
       for(int i=0;i<10;i++)
@@ -446,5 +446,5 @@ void active(int move,int8_t pic[]){
       motor.runDist(40);  //forward
   else if (pic[move] == 3)
       motor.runDist(-40);//back
-  delay(500);
+  delay(100);
 }
