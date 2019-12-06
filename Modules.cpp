@@ -79,7 +79,7 @@ void Motor::turnDeg(int16_t degree){
 		rightSpeed(50);
         Serial.print("r = 50, ");
       	leftSpeed(-50);
-        Serial.println("l = 50");
+        Serial.println("l = -50");
       	while(cyclele<count||cycleri<count){
 			Serial.print(cyclele);
 			Serial.println(cycleri);
