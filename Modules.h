@@ -24,7 +24,7 @@
 //BUZZER
 #define BUZZER_PIN 8
 
-#define COUNT_PER_ROT 140
+#define COUNT_PER_ROT 200
 #define DIAMETER 4.5
 #define WHEEL_WIDTH 14.5
 
@@ -58,11 +58,11 @@ class Motor{
 class JoyStick{
     public:
         JoyStick(){pinMode(JOYSTICK_SW,INPUT);}
-        bool isClicked(){return digitalRead(JOYSTICK_SW);}
-        bool up(){return readY()<(int)(0.25*894);}
-        bool down(){return readY()>(int)(0.75*894);}
-        bool left(){return readX()<(int)(0.25*894);}
-        bool right(){return readX()>(int)(0.75*894);}
+        bool isClicked(){return !digitalRead(JOYSTICK_SW);}
+        bool up(){return readY()<(int)(10);}
+        bool down(){return readY()>(int)(800);}
+        bool left(){return readX()<(int)(10);}
+        bool right(){return readX()>(int)(800);}
         //range: 0-894 left-right up-down
         int readX(){return analogRead(JOYSTICK_X);}
         int readY(){return analogRead(JOYSTICK_Y);}
