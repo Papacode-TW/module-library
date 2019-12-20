@@ -1,7 +1,7 @@
 {
     "extensionName": "PapacodeModules-Lee",
     "description": "Extension for PapacodeModules-Lee",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "author": "BioMotion (bensonpuppy1997@gmail.com)",
     "homepage": "http://www.papacode.com.tw",
     "sort":0,
@@ -16,9 +16,9 @@
             "100",
             {
                 "inc":"#include \"Modules.h\"\n",
-                "def":"Motor motor;\n",
-                "setup":"",
-                "work":"motor.leftRun({0});\n",
+                "def":"Motor motor;\nJoyStick joystick;\n",
+                "setup":"while(!joystick.isClicked());\n",
+                "work":"motor.leftSpeed({0});\n",
                 "loop":""
             }
         ],
@@ -29,9 +29,9 @@
             "100",
             {
                 "inc":"#include \"Modules.h\"\n",
-                "def":"Motor motor;\n",
-                "setup":"",
-                "work":"motor.rightRun({0});\n",
+                "def":"Motor motor;\nJoyStick joystick;\n",
+                "setup":"while(!joystick.isClicked());\n",
+                "work":"motor.rightSpeed({0});\n",
                 "loop":""
             }
         ],
@@ -42,8 +42,8 @@
             "10",
             {
                 "inc":"#include \"Modules.h\"\n",
-                "def":"Motor motor;\n",
-                "setup":"",
+                "def":"Motor motor;\nJoyStick joystick;\n",
+                "setup":"while(!joystick.isClicked());\n",
                 "work":"motor.runDist({0});\n",
                 "loop":""
             }
@@ -55,8 +55,8 @@
             "90",
             {
                 "inc":"#include \"Modules.h\"\n",
-                "def":"Motor motor;\n",
-                "setup":"",
+                "def":"Motor motor;\nJoyStick joystick;\n",
+                "setup":"while(!joystick.isClicked());\n",
                 "work":"motor.turnDeg({0});\n",
                 "loop":""
             }

@@ -4,10 +4,10 @@
 #include <Arduino.h>
 
 //MOTOR
-#define MOTOR_LEFT_FORWARD 10
-#define MOTOR_LEFT_BACKWARD 9
-#define MOTOR_RIGHT_FORWARD 6
-#define MOTOR_RIGHT_BACKWARD 5
+#define MOTOR_LEFT_FORWARD 6
+#define MOTOR_LEFT_BACKWARD 5
+#define MOTOR_RIGHT_FORWARD 9
+#define MOTOR_RIGHT_BACKWARD 10
 #define LOW_SPEED 50
 #define HIGH_SPEED 255
 //JOYSTICK
@@ -15,18 +15,18 @@
 #define JOYSTICK_Y A1
 #define JOYSTICK_SW 4
 //ULTRASOUND
-#define ULTRASOUND_ECHO 3
-#define ULTRASOUND_TRIG 2
+#define ULTRASOUND_ECHO A3
+#define ULTRASOUND_TRIG A2
 //TURNSIGNAL
-#define TURNSIGNAL_L 4
-#define TURNSIGNAL_R 7
+#define TURNSIGNAL_L 11
+#define TURNSIGNAL_R 12
 #define TURNSIGNAL_BLINK_HZ 2
 //BUZZER
 #define BUZZER_PIN 8
 
-#define COUNT_PER_ROT 33
-#define DIAMETER 6.5
-#define WHEEL_WIDTH 10
+#define COUNT_PER_ROT 200
+#define DIAMETER 4.5
+#define WHEEL_WIDTH 14.5
 
 class Motor{
     public:
@@ -58,11 +58,11 @@ class Motor{
 class JoyStick{
     public:
         JoyStick(){pinMode(JOYSTICK_SW,INPUT);}
-        bool isClicked(){return digitalRead(JOYSTICK_SW);}
-        bool up(){return readY()<(int)(0.25*894);}
-        bool down(){return readY()>(int)(0.75*894);}
-        bool left(){return readX()<(int)(0.25*894);}
-        bool right(){return readX()>(int)(0.75*894);}
+        bool isClicked(){return !digitalRead(JOYSTICK_SW);}
+        bool up(){return readY()<(int)(10);}
+        bool down(){return readY()>(int)(800);}
+        bool left(){return readX()<(int)(10);}
+        bool right(){return readX()>(int)(800);}
         //range: 0-894 left-right up-down
         int readX(){return analogRead(JOYSTICK_X);}
         int readY(){return analogRead(JOYSTICK_Y);}
